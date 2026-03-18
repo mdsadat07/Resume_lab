@@ -582,6 +582,28 @@ tr:hover td{background:rgba(255,255,255,.018)}
 .toast.show{transform:translateY(0);opacity:1}
 .container{max-width:1100px;margin:0 auto}
 
+/* ── LEGAL PAGES ──────────────────────────────────────────── */
+.legal-section{animation:fade-up .35s ease both}
+.legal-eyebrow{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.13em;color:var(--hi);margin-bottom:1rem}
+.legal-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-.04em;color:var(--txt);margin-bottom:1rem;line-height:1.05}
+.legal-lead{font-size:1.05rem;color:var(--txt2);line-height:1.75;margin-bottom:2.5rem;border-left:3px solid var(--hi);padding-left:1rem}
+.legal-h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.15rem;font-weight:700;color:var(--txt);letter-spacing:-.025em;margin:2.5rem 0 .875rem;padding-top:2rem;border-top:1px solid var(--line)}
+.legal-p{font-size:.9rem;color:var(--txt2);line-height:1.78;margin-bottom:1rem}
+.legal-ul{list-style:none;padding:0;margin:.5rem 0 1rem}
+.legal-ul li{font-size:.88rem;color:var(--txt2);line-height:1.7;padding:.25rem 0 .25rem 1.25rem;position:relative}
+.legal-ul li::before{content:'→';position:absolute;left:0;color:var(--hi);font-size:.75rem;top:.35rem}
+.legal-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:1rem 0 1.5rem}
+.legal-row{display:flex;align-items:flex-start;gap:1rem;padding:.875rem 1.1rem;border-bottom:1px solid var(--line);font-size:.84rem;color:var(--txt2);line-height:1.55}
+.legal-row:last-child{border-bottom:none}
+.legal-tag{flex-shrink:0;background:rgba(232,255,71,.08);color:var(--hi);border:1px solid rgba(232,255,71,.16);border-radius:4px;padding:.18rem .6rem;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;align-self:flex-start;margin-top:.1rem}
+.legal-tag-purple{background:rgba(123,97,255,.1)!important;color:#a78bfa!important;border-color:rgba(123,97,255,.2)!important}
+.legal-tag-green{background:rgba(34,211,160,.08)!important;color:#34d399!important;border-color:rgba(34,211,160,.18)!important}
+.legal-link{color:var(--hi);text-decoration:none;transition:opacity .18s}
+.legal-link:hover{opacity:.75;text-decoration:underline}
+.legal-callout{background:rgba(232,255,71,.04);border:1px solid rgba(232,255,71,.14);border-left:3px solid var(--hi);border-radius:0 10px 10px 0;padding:1.1rem 1.25rem;font-size:.87rem;color:var(--txt2);line-height:1.72;margin:1rem 0 1.5rem}
+.legal-contact-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.5rem;transition:border-color .2s}
+.legal-contact-card:hover{border-color:var(--line2)}
+
 /* ── RESPONSIVE ──────────────────────────────────────────── */
 @media(max-width:900px){
   .bento{grid-template-columns:1fr 1fr}
@@ -1016,10 +1038,14 @@ tr:hover td{background:rgba(255,255,255,.018)}
   <div class="f-logo">Resume<span class="dot">Lab</span></div>
   <div class="f-sub">Free forever · Watermark-free · For every job seeker, everywhere.</div>
   <div class="f-links">
-    <a href="#">Privacy Policy</a>
-    <a href="#">GDPR / CCPA</a>
-    <a href="#">Terms of Service</a>
-    <a href="#">Contact</a>
+    <a href="#" onclick="showLegal('privacy');return false">Privacy Policy</a>
+    <a href="#" onclick="showLegal('gdpr');return false">GDPR / CCPA</a>
+    <a href="#" onclick="showLegal('terms');return false">Terms of Service</a>
+    <a href="#" onclick="showLegal('contact');return false">Contact</a>
+  </div>
+  <div style="font-size:.7rem;color:var(--txt3);margin-top:1rem">
+    © 2026 ResumeLab · Governed by the laws of Ontario, Canada ·
+    <a href="mailto:support@resumelab.com" style="color:var(--txt3);text-decoration:none">support@resumelab.com</a>
   </div>
 </footer>
 
@@ -1239,6 +1265,263 @@ tr:hover td{background:rgba(255,255,255,.018)}
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════════════════
+     LEGAL PAGES (Privacy Policy · GDPR/CCPA · Terms · Contact)
+     ══════════════════════════════════════════════════════════ -->
+<div id="legal-overlay" style="display:none;position:fixed;inset:0;z-index:500;background:var(--bg);overflow-y:auto">
+
+  <!-- Close bar -->
+  <div style="position:sticky;top:0;z-index:10;background:rgba(9,9,11,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.875rem 2rem;display:flex;align-items:center;justify-content:space-between">
+    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:800;color:var(--txt);letter-spacing:-.02em">Resume<span style="color:var(--hi)">Lab</span> <span id="legal-page-title" style="font-weight:400;color:var(--txt2);font-size:.85rem;margin-left:.5rem"></span></div>
+    <button onclick="closeLegal()" style="background:var(--panel);border:1px solid var(--line2);color:var(--txt2);padding:.4rem 1rem;border-radius:7px;cursor:pointer;font-family:'Instrument Sans',sans-serif;font-size:.82rem;transition:all .18s" onmouseover="this.style.color='var(--txt)'" onmouseout="this.style.color='var(--txt2)'">← Back</button>
+  </div>
+
+  <div style="max-width:780px;margin:0 auto;padding:3rem 2rem 5rem">
+
+    <!-- ── PRIVACY POLICY ── -->
+    <div id="legal-privacy" class="legal-section" style="display:none">
+      <div class="legal-eyebrow">Last Updated: March 2026</div>
+      <h1 class="legal-h1">Privacy Policy</h1>
+      <p class="legal-lead">ResumeLab processes your personal data in accordance with GDPR (EU/EEA), CCPA/CPRA (California), and PIPEDA (Canada). This policy explains what we collect, why, and how you can control it.</p>
+
+      <h2 class="legal-h2">1. Data We Collect</h2>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag">Identity</span><span>Full name, email address, country of residence</span></div>
+        <div class="legal-row"><span class="legal-tag">Resume Content</span><span>Work history, education, skills, and any other information you enter</span></div>
+        <div class="legal-row"><span class="legal-tag">Authentication</span><span>Password hash (email sign-up) or OAuth token (Google sign-in)</span></div>
+        <div class="legal-row"><span class="legal-tag">Usage Data</span><span>Pages visited, features used, PDF download events, timestamps</span></div>
+        <div class="legal-row"><span class="legal-tag">Technical</span><span>Browser type, device, IP address (anonymized after 30 days)</span></div>
+      </div>
+
+      <h2 class="legal-h2">2. How We Use Your Data</h2>
+      <p class="legal-p">We use your data solely to provide and improve the Service. Specifically:</p>
+      <ul class="legal-ul">
+        <li>To create and manage your account</li>
+        <li>To generate, store, and export your resume documents</li>
+        <li>To communicate service updates and security notices</li>
+        <li>To analyze aggregate usage patterns (anonymized)</li>
+        <li>To comply with legal obligations</li>
+      </ul>
+
+      <h2 class="legal-h2">3. Legal Basis for Processing</h2>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag">Consent</span><span>Marketing communications, non-essential cookies</span></div>
+        <div class="legal-row"><span class="legal-tag">Contract</span><span>Account creation, resume generation, PDF delivery</span></div>
+        <div class="legal-row"><span class="legal-tag">Legitimate Interests</span><span>Security monitoring, fraud prevention, product improvement</span></div>
+        <div class="legal-row"><span class="legal-tag">Legal Obligation</span><span>Tax records, law enforcement requests where required</span></div>
+      </div>
+
+      <h2 class="legal-h2">4. Data Sharing</h2>
+      <p class="legal-p"><strong style="color:var(--txt)">We do not sell your personal data.</strong> We share data only with trusted sub-processors under strict data processing agreements, including:</p>
+      <ul class="legal-ul">
+        <li><strong style="color:var(--txt)">Firebase / Google</strong> — authentication and hosting</li>
+        <li><strong style="color:var(--txt)">Google Sheets API</strong> — registration logging (if configured)</li>
+        <li><strong style="color:var(--txt)">Stripe</strong> — payment processing (if applicable; no full card details stored by us)</li>
+      </ul>
+
+      <h2 class="legal-h2">5. International Data Transfers</h2>
+      <p class="legal-p">Your data may be processed outside your jurisdiction. Where this occurs, we rely on Standard Contractual Clauses (SCCs) or equivalent safeguards approved by relevant data protection authorities.</p>
+
+      <h2 class="legal-h2">6. Data Retention</h2>
+      <p class="legal-p">We retain your data only as long as necessary to provide the Service or as required by law. You may request deletion of your account and associated data at any time by emailing <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a>. Requests are actioned within 30 days.</p>
+
+      <h2 class="legal-h2">7. Your Rights</h2>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag">Access</span><span>Request a copy of the personal data we hold about you</span></div>
+        <div class="legal-row"><span class="legal-tag">Correction</span><span>Ask us to correct inaccurate or incomplete data</span></div>
+        <div class="legal-row"><span class="legal-tag">Deletion</span><span>Request erasure of your data ("right to be forgotten")</span></div>
+        <div class="legal-row"><span class="legal-tag">Portability</span><span>Receive your data in a structured, machine-readable format</span></div>
+        <div class="legal-row"><span class="legal-tag">Objection</span><span>Object to processing based on legitimate interests</span></div>
+        <div class="legal-row"><span class="legal-tag">Withdraw Consent</span><span>Withdraw consent at any time without affecting prior processing</span></div>
+      </div>
+      <p class="legal-p">To exercise any right, contact <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a>. You also have the right to lodge a complaint with your local data protection authority.</p>
+
+      <h2 class="legal-h2">8. Cookies</h2>
+      <p class="legal-p">We use essential cookies for authentication and session management, and optional analytics cookies to understand usage patterns. Non-essential cookies require your consent. See our full Cookie Policy in the banner below.</p>
+
+      <h2 class="legal-h2">9. Children's Privacy</h2>
+      <p class="legal-p">The Service is not directed at children under 13. We do not knowingly collect data from children. If you believe a child has provided us with data, contact us immediately.</p>
+
+      <h2 class="legal-h2">10. Contact</h2>
+      <p class="legal-p">Privacy inquiries: <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a><br/>General support: <a href="mailto:support@resumelab.com" class="legal-link">support@resumelab.com</a></p>
+    </div>
+
+    <!-- ── GDPR / CCPA ── -->
+    <div id="legal-gdpr" class="legal-section" style="display:none">
+      <div class="legal-eyebrow">Last Updated: March 2026</div>
+      <h1 class="legal-h1">GDPR, CCPA & PIPEDA Rights</h1>
+      <p class="legal-lead">This page explains your specific rights under the General Data Protection Regulation (EU), the California Consumer Privacy Act / CPRA, and Canada's PIPEDA — and exactly how to exercise them.</p>
+
+      <h2 class="legal-h2">GDPR — European Users</h2>
+      <p class="legal-p">If you are located in the EU or EEA, you have the following rights under Regulation (EU) 2016/679:</p>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 15</span><span><strong style="color:var(--txt)">Right of Access</strong> — Obtain a copy of your personal data and information about how it is processed.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 16</span><span><strong style="color:var(--txt)">Right to Rectification</strong> — Correct inaccurate or complete incomplete personal data.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 17</span><span><strong style="color:var(--txt)">Right to Erasure</strong> — Request deletion of your data where there is no compelling reason for continued processing.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 18</span><span><strong style="color:var(--txt)">Right to Restrict Processing</strong> — Limit how we use your data in certain circumstances.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 20</span><span><strong style="color:var(--txt)">Right to Data Portability</strong> — Receive your data in a portable, machine-readable format.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 21</span><span><strong style="color:var(--txt)">Right to Object</strong> — Object to processing based on legitimate interests or for direct marketing.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-purple">Art. 22</span><span><strong style="color:var(--txt)">Automated Decision-Making</strong> — Not be subject to solely automated decisions with significant effects.</span></div>
+      </div>
+      <p class="legal-p">Our Data Protection contact: <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a>. You also have the right to complain to your national supervisory authority (e.g., ICO in the UK, CNIL in France, Datatilsynet in Denmark).</p>
+
+      <h2 class="legal-h2">CCPA / CPRA — California Users</h2>
+      <p class="legal-p">If you are a California resident, you have the following rights under the California Consumer Privacy Act and the California Privacy Rights Act:</p>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Know</span><span>Know what personal information we collect, use, disclose, and sell (we do not sell).</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Delete</span><span>Request deletion of personal information we have collected, subject to certain exceptions.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Correct</span><span>Request correction of inaccurate personal information.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Opt-Out</span><span>Opt out of the sale or sharing of personal information. <strong style="color:var(--txt)">We do not sell or share data.</strong></span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Limit</span><span>Limit the use and disclosure of sensitive personal information.</span></div>
+        <div class="legal-row"><span class="legal-tag legal-tag-green">Non-Discrimination</span><span>Not be discriminated against for exercising your privacy rights.</span></div>
+      </div>
+      <p class="legal-p">To submit a CCPA request, email <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a> with subject line "CCPA Request". We will respond within 45 days.</p>
+
+      <h2 class="legal-h2">PIPEDA — Canadian Users</h2>
+      <p class="legal-p">Under Canada's Personal Information Protection and Electronic Documents Act, you have the right to access personal information we hold about you and to challenge its accuracy. We are accountable for the personal information under our control and comply with the 10 fair information principles under PIPEDA.</p>
+      <p class="legal-p">Contact our Privacy Officer: <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a>. You may also contact the Office of the Privacy Commissioner of Canada at <a href="https://www.priv.gc.ca" target="_blank" class="legal-link">priv.gc.ca</a>.</p>
+
+      <h2 class="legal-h2">Data Processing Addendum (DPA)</h2>
+      <p class="legal-p">Enterprise customers requiring a formal Data Processing Addendum are invited to request one at <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a>. Our DPA covers:</p>
+      <ul class="legal-ul">
+        <li>Processing instructions and scope</li>
+        <li>Security measures (encryption, access controls)</li>
+        <li>Sub-processor list and obligations</li>
+        <li>Data breach notification (within 72 hours of awareness)</li>
+        <li>Data subject rights assistance</li>
+        <li>Deletion / return of data upon termination</li>
+      </ul>
+
+      <h2 class="legal-h2">How to Submit a Request</h2>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag">Email</span><span><a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a></span></div>
+        <div class="legal-row"><span class="legal-tag">Subject Line</span><span>Include your request type: "GDPR Access Request", "CCPA Delete Request", etc.</span></div>
+        <div class="legal-row"><span class="legal-tag">Verification</span><span>We will verify your identity before processing any request</span></div>
+        <div class="legal-row"><span class="legal-tag">Response Time</span><span>Within 30 days (GDPR) · Within 45 days (CCPA) · Within 30 days (PIPEDA)</span></div>
+      </div>
+    </div>
+
+    <!-- ── TERMS OF SERVICE ── -->
+    <div id="legal-terms" class="legal-section" style="display:none">
+      <div class="legal-eyebrow">Last Updated: March 2026 · Governed by the laws of Ontario, Canada</div>
+      <h1 class="legal-h1">Terms of Service</h1>
+      <p class="legal-lead">By accessing or using ResumeLab, you agree to be legally bound by these Terms. If you do not agree, you must discontinue use immediately.</p>
+
+      <h2 class="legal-h2">1. Description of Service</h2>
+      <p class="legal-p">ResumeLab provides a digital platform enabling users to create, edit, and download resumes and curriculum vitae, including AI-assisted content suggestions. We reserve the right to modify, suspend, or discontinue any part of the Service at any time without liability.</p>
+
+      <h2 class="legal-h2">2. Eligibility</h2>
+      <p class="legal-p">You must be at least 13 years old, or the minimum legal age in your jurisdiction, to use this Service. By using ResumeLab, you represent that you meet this requirement.</p>
+
+      <h2 class="legal-h2">3. User Accounts</h2>
+      <p class="legal-p">You agree to provide accurate, current, and complete information during registration, maintain the confidentiality of your account credentials, and accept full responsibility for all activity that occurs under your account. We may suspend or terminate accounts at our discretion for violations of these Terms.</p>
+
+      <h2 class="legal-h2">4. Your Content</h2>
+      <p class="legal-p">You retain full ownership of all content you provide to ResumeLab. By using the Service, you grant ResumeLab a limited, non-exclusive, revocable license to process and display your content solely to provide the Service. We will never use your resume content for training AI models or share it with third parties for commercial purposes.</p>
+
+      <h2 class="legal-h2">5. Acceptable Use</h2>
+      <p class="legal-p">You agree not to use the Service to:</p>
+      <ul class="legal-ul">
+        <li>Violate any applicable law or regulation</li>
+        <li>Upload misleading, harmful, fraudulent, or defamatory content</li>
+        <li>Impersonate another person or entity</li>
+        <li>Attempt to disrupt, compromise, or gain unauthorized access to systems</li>
+        <li>Engage in automated scraping or bulk data extraction</li>
+        <li>Violate any export control or sanctions laws</li>
+      </ul>
+
+      <h2 class="legal-h2">6. Intellectual Property</h2>
+      <p class="legal-p">All platform content (excluding user-submitted content), including templates, design, code, branding, and documentation, is owned by ResumeLab and protected by applicable intellectual property laws. Unauthorized reproduction or distribution is prohibited.</p>
+
+      <h2 class="legal-h2">7. AI-Generated Content</h2>
+      <div class="legal-callout">
+        <div style="font-size:1.1rem;margin-bottom:.5rem">⚠️ AI Disclaimer</div>
+        ResumeLab may use artificial intelligence to generate or enhance resume content. AI-generated content is provided as-is, with no guarantee of accuracy, completeness, or fitness for purpose. It does not constitute professional advice of any kind. You are solely responsible for reviewing, verifying, and approving all content before submission to any employer. Use of AI-generated content is entirely at your own risk.
+      </div>
+
+      <h2 class="legal-h2">8. Payments & Billing</h2>
+      <p class="legal-p">Payments are processed through secure third-party providers (e.g., Stripe). ResumeLab does not store full payment card details. Prices are displayed before purchase; applicable taxes may vary by jurisdiction.</p>
+      <p class="legal-p"><strong style="color:var(--txt)">Refunds:</strong> All payments are non-refundable unless required by applicable consumer protection law. Subscriptions auto-renew until canceled; cancellation takes effect at the end of the current billing cycle.</p>
+
+      <h2 class="legal-h2">9. Limitation of Liability</h2>
+      <div class="legal-callout">
+        To the fullest extent permitted by applicable law, ResumeLab shall not be liable for: loss of employment opportunities or income; loss, corruption, or deletion of data; errors or omissions in generated content; or any indirect, incidental, special, or consequential damages. <strong style="color:var(--txt)">Our maximum aggregate liability is the greater of: (a) the total amount you paid to ResumeLab in the 12 months preceding the claim, or (b) $50 CAD.</strong>
+      </div>
+
+      <h2 class="legal-h2">10. Disclaimer of Warranties</h2>
+      <p class="legal-p">The Service is provided <strong style="color:var(--txt)">"as is"</strong> and <strong style="color:var(--txt)">"as available"</strong> without warranties of any kind, express or implied, including but not limited to implied warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the Service will be uninterrupted, error-free, or free of harmful components.</p>
+
+      <h2 class="legal-h2">11. Employment Disclaimer</h2>
+      <p class="legal-p">ResumeLab does not guarantee — and expressly disclaims any promise of — job offers, interviews, callbacks, or employment outcomes of any kind. Outcomes depend entirely on factors outside our control.</p>
+
+      <h2 class="legal-h2">12. Indemnification</h2>
+      <p class="legal-p">You agree to indemnify, defend, and hold harmless ResumeLab and its officers, directors, employees, and agents from any claims, damages, losses, or expenses (including legal fees) arising from: your use of the Service; content you submit; or your violation of these Terms.</p>
+
+      <h2 class="legal-h2">13. Governing Law & Dispute Resolution</h2>
+      <p class="legal-p">These Terms are governed by the laws of the Province of Ontario, Canada, and the federal laws of Canada applicable therein, without regard to conflict of law principles. Any disputes shall be resolved in the courts of Ontario, unless otherwise required by applicable consumer protection laws in your jurisdiction.</p>
+
+      <h2 class="legal-h2">14. Changes to These Terms</h2>
+      <p class="legal-p">We may update these Terms from time to time. Material changes will be notified via email or a prominent notice within the Service. Continued use after changes constitutes acceptance of the updated Terms.</p>
+
+      <h2 class="legal-h2">15. Severability</h2>
+      <p class="legal-p">If any provision of these Terms is found invalid or unenforceable, the remaining provisions will continue in full force and effect.</p>
+    </div>
+
+    <!-- ── CONTACT ── -->
+    <div id="legal-contact" class="legal-section" style="display:none">
+      <div class="legal-eyebrow">We typically respond within 1–2 business days</div>
+      <h1 class="legal-h1">Contact Us</h1>
+      <p class="legal-lead">Whether you have a question about your resume, your account, data privacy, or anything else — we're here to help.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin:2rem 0">
+        <div class="legal-contact-card">
+          <div style="font-size:1.5rem;margin-bottom:.75rem">💬</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:700;color:var(--txt);margin-bottom:.35rem">General Support</div>
+          <div style="font-size:.84rem;color:var(--txt2);margin-bottom:.75rem">Account issues, resume builder help, PDF export, billing</div>
+          <a href="mailto:support@resumelab.com" class="legal-link" style="font-weight:600">support@resumelab.com</a>
+        </div>
+        <div class="legal-contact-card">
+          <div style="font-size:1.5rem;margin-bottom:.75rem">🔒</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:1rem;font-weight:700;color:var(--txt);margin-bottom:.35rem">Privacy & Data</div>
+          <div style="font-size:.84rem;color:var(--txt2);margin-bottom:.75rem">GDPR, CCPA, data deletion requests, DPA inquiries</div>
+          <a href="mailto:privacy@resumelab.com" class="legal-link" style="font-weight:600">privacy@resumelab.com</a>
+        </div>
+      </div>
+
+      <h2 class="legal-h2">Response Time Commitments</h2>
+      <div class="legal-card">
+        <div class="legal-row"><span class="legal-tag">General Support</span><span>1–2 business days</span></div>
+        <div class="legal-row"><span class="legal-tag">Data / Privacy Requests</span><span>Within 30 days (as required by law)</span></div>
+        <div class="legal-row"><span class="legal-tag">Security Reports</span><span>Within 72 hours</span></div>
+        <div class="legal-row"><span class="legal-tag">DPA Requests</span><span>3–5 business days</span></div>
+      </div>
+
+      <h2 class="legal-h2">Mailing Address</h2>
+      <p class="legal-p" style="color:var(--txt2)">ResumeLab<br/>Ontario, Canada<br/><a href="mailto:support@resumelab.com" class="legal-link">support@resumelab.com</a></p>
+
+      <h2 class="legal-h2">Report a Security Vulnerability</h2>
+      <p class="legal-p">Found a security issue? Please disclose responsibly by emailing <a href="mailto:privacy@resumelab.com" class="legal-link">privacy@resumelab.com</a> with subject line "Security Disclosure". We will acknowledge your report within 72 hours and work with you to resolve it.</p>
+    </div>
+
+  </div><!-- /legal content -->
+</div><!-- /legal-overlay -->
+
+<!-- ══════════════════════════════════════════════════════════
+     COOKIE CONSENT BANNER (GDPR-ready)
+     ══════════════════════════════════════════════════════════ -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;padding:1.25rem 2rem;background:rgba(13,14,20,.97);backdrop-filter:blur(20px);border-top:1px solid var(--line2)">
+  <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:1rem;justify-content:space-between">
+    <div style="flex:1;min-width:260px">
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:.95rem;font-weight:700;color:var(--txt);margin-bottom:.3rem">🍪 We use cookies</div>
+      <p style="font-size:.8rem;color:var(--txt2);line-height:1.6;margin:0">We use essential cookies for authentication and optional analytics cookies to improve your experience. You can accept all or reject non-essential cookies. <a href="#" onclick="showLegal('privacy');closeCookieBanner();return false" style="color:var(--hi);text-decoration:none;font-weight:600">Privacy Policy</a></p>
+    </div>
+    <div style="display:flex;gap:.625rem;flex-shrink:0;flex-wrap:wrap">
+      <button onclick="rejectCookies()" style="background:transparent;color:var(--txt2);border:1px solid var(--line2);padding:.5rem 1.1rem;border-radius:7px;font-family:'Instrument Sans',sans-serif;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .18s" onmouseover="this.style.color='var(--txt)'" onmouseout="this.style.color='var(--txt2)'">Reject Non-Essential</button>
+      <button onclick="acceptCookies()" style="background:var(--hi);color:#09090b;border:none;padding:.5rem 1.25rem;border-radius:7px;font-family:'Instrument Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:background .18s" onmouseover="this.style.background='#d4ee2e'" onmouseout="this.style.background='var(--hi)'">Accept All</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
@@ -1298,9 +1581,7 @@ const ALL_SECTIONS = [
 ];
 
 // ── INIT ──────────────────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  loadStats();
-});
+// (load event handled at bottom of script)
 
 // ── NAVIGATION ──────────────────────────────────────────────────────────
 function showSection(sec) {
@@ -1319,6 +1600,202 @@ function openAdmin() {
   const pw = prompt('Enter admin password:');
   if (pw === 'admin123') { showSection('admin'); loadAdminData(); }
   else if (pw !== null) showToast('Incorrect password');
+}
+
+// ── AUTH MODAL ────────────────────────────────────────────────────────────
+function openAuth(tab) {
+  document.getElementById('auth-overlay').classList.add('show');
+  switchTab(tab || 'login');
+  clearMsg();
+}
+function closeAuth() { document.getElementById('auth-overlay').classList.remove('show'); }
+function switchTab(tab) {
+  document.getElementById('login-form').style.display    = tab==='login'    ? 'block' : 'none';
+  document.getElementById('register-form').style.display = tab==='register' ? 'block' : 'none';
+  document.getElementById('tab-login').classList.toggle('active',    tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+  clearMsg();
+}
+function showMsg(msg, type) {
+  const el = document.getElementById('msg-box');
+  el.textContent = msg; el.className = `msg ${type}`;
+}
+function clearMsg() { document.getElementById('msg-box').className = 'msg'; }
+
+function onAuthSuccess(user, method) {
+  currentUser = { email: user.email, name: user.displayName || user.email.split('@')[0], photo: user.photoURL || '' };
+  // Pre-fill name in builder
+  if (data) data.name = currentUser.name;
+  // Update nav
+  const nameEl   = document.getElementById('nav-user-name');
+  const avatarEl = document.getElementById('nav-user-avatar');
+  if (nameEl) {
+    nameEl.textContent = currentUser.name.split(' ')[0];
+    document.getElementById('nav-auth-btns').style.display = 'none';
+    document.getElementById('nav-user-info').style.display = 'flex';
+  }
+  if (avatarEl && currentUser.photo) { avatarEl.src = currentUser.photo; avatarEl.style.display = 'block'; }
+  closeAuth();
+  showToast(`Welcome, ${currentUser.name.split(' ')[0]}! ✦`);
+  showSection('builder');
+}
+
+async function handleLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showMsg('Please fill in all fields.', 'error'); return; }
+  if (window._fb) {
+    try {
+      showMsg('Signing in…', 'success');
+      const result = await window._fb.signInWithEmailAndPassword(window._fb.auth, email, pass);
+      logToSheet({ action:'login', email, timestamp: new Date().toISOString(), method:'email' });
+      onAuthSuccess(result.user, 'email');
+    } catch(err) {
+      const msgs = {
+        'auth/user-not-found':     'No account found with that email.',
+        'auth/wrong-password':     'Incorrect password.',
+        'auth/invalid-email':      'Please enter a valid email.',
+        'auth/too-many-requests':  'Too many attempts — try again later.',
+        'auth/invalid-credential': 'Email or password is incorrect.'
+      };
+      showMsg(msgs[err.code] || 'Sign-in failed. Please try again.', 'error');
+    }
+  } else {
+    // Firebase not configured — simple fallback
+    currentUser = { email, name: email.split('@')[0], photo:'' };
+    logToSheet({ action:'login', email, timestamp: new Date().toISOString() });
+    onAuthSuccess({ email, displayName: email.split('@')[0], photoURL:'' }, 'email');
+  }
+}
+
+async function handleRegister() {
+  const fname   = document.getElementById('reg-fname').value.trim();
+  const lname   = document.getElementById('reg-lname').value.trim();
+  const email   = document.getElementById('reg-email').value.trim();
+  const pass    = document.getElementById('reg-pass').value;
+  const country = document.getElementById('reg-country').value;
+  if (!fname || !email || !pass || !country) { showMsg('Please fill in all required fields.', 'error'); return; }
+  if (pass.length < 8) { showMsg('Password must be at least 8 characters.', 'error'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showMsg('Please enter a valid email address.', 'error'); return; }
+  const fullName = `${fname} ${lname}`.trim();
+  if (window._fb) {
+    try {
+      showMsg('Creating account…', 'success');
+      const result = await window._fb.createUserWithEmailAndPassword(window._fb.auth, email, pass);
+      await window._fb.updateProfile(result.user, { displayName: fullName });
+      result.user.displayName = fullName;
+      await logToSheet({ action:'register', name:fullName, email, country, timestamp:new Date().toISOString(), method:'email' });
+      fakeStats.users++;
+      const su = document.getElementById('stat-users');
+      if (su) su.textContent = fakeStats.users.toLocaleString();
+      onAuthSuccess(result.user, 'email');
+    } catch(err) {
+      const msgs = {
+        'auth/email-already-in-use': 'An account with this email already exists.',
+        'auth/weak-password':        'Password is too weak (min. 8 characters).',
+        'auth/invalid-email':        'Please enter a valid email address.'
+      };
+      showMsg(msgs[err.code] || 'Registration failed. Please try again.', 'error');
+    }
+  } else {
+    // Firebase not configured — simple fallback
+    await logToSheet({ action:'register', name:fullName, email, country, timestamp:new Date().toISOString(), method:'email' });
+    fakeStats.users++;
+    const su = document.getElementById('stat-users');
+    if (su) su.textContent = fakeStats.users.toLocaleString();
+    onAuthSuccess({ email, displayName: fullName, photoURL:'' }, 'email');
+  }
+}
+
+async function socialLogin(provider) {
+  if (provider === 'LinkedIn') { showMsg('LinkedIn login coming soon. Use email or Google.', 'error'); return; }
+  if (!window._fb) { showMsg('Google login requires Firebase setup. See code comments.', 'error'); return; }
+  try {
+    clearMsg();
+    const result = await window._fb.signInWithPopup(window._fb.auth, window._fb.provider);
+    const user = result.user;
+    const isNew = result._tokenResponse?.isNewUser;
+    await logToSheet({ action: isNew?'register':'login', name:user.displayName, email:user.email,
+      country:'Unknown', timestamp:new Date().toISOString(), method:'google' });
+    if (isNew) { fakeStats.users++; const su=document.getElementById('stat-users'); if(su) su.textContent=fakeStats.users.toLocaleString(); }
+    onAuthSuccess(user, 'google');
+  } catch(err) {
+    if (err.code === 'auth/popup-closed-by-user') return;
+    if (err.code === 'auth/popup-blocked') { showMsg('Pop-up blocked. Allow pop-ups for this site.', 'error'); return; }
+    showMsg('Google sign-in failed. Please try again.', 'error');
+  }
+}
+
+async function handleSignOut() {
+  if (window._fb) { try { await window._fb.signOut(window._fb.auth); } catch(e){} }
+  currentUser = null;
+  document.getElementById('nav-auth-btns').style.display = 'flex';
+  document.getElementById('nav-user-info').style.display = 'none';
+  showSection('home');
+  showToast('Signed out successfully.');
+}
+
+function guestMode() {
+  currentUser = { email:'guest', name:'Guest', photo:'' };
+  showSection('builder');
+  showToast('Guest mode — sign up to save your work.');
+}
+
+// ── GOOGLE SHEET LOGGING ─────────────────────────────────────────────────
+async function logToSheet(payload) {
+  if (SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') return;
+  try {
+    await fetch(SHEET_URL, { method:'POST', mode:'no-cors',
+      headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+  } catch(e) {}
+}
+
+// ── ADMIN DATA ───────────────────────────────────────────────────────────
+async function loadAdminData() {
+  let users = getDemoUsers();
+  try { const r=await fetch(`${SHEET_URL}?action=users`); const d=await r.json(); if(d.users&&d.users.length) users=d.users; } catch(e){}
+  renderAdminTable(users);
+}
+function getDemoUsers() {
+  return [
+    {name:'Sarah Johnson', email:'sarah.j@email.com', country:'🇺🇸 United States', date:'2025-03-18', type:'email'},
+    {name:'Luca Bianchi',  email:'luca@email.it',     country:'🇩🇪 Germany',        date:'2025-03-17', type:'google'},
+    {name:'Priya Sharma',  email:'priya.s@email.in',  country:'🇮🇳 India',           date:'2025-03-17', type:'email'},
+    {name:'James Okafor',  email:'james.o@email.com', country:'🇳🇬 Nigeria',         date:'2025-03-16', type:'email'},
+    {name:'Emma Laurent',  email:'e.laurent@email.fr',country:'🇫🇷 France',          date:'2025-03-16', type:'linkedin'},
+    {name:'Carlos Rivera', email:'carlos.r@email.mx', country:'🇲🇽 Mexico',          date:'2025-03-15', type:'google'},
+    {name:'Aisha Rahman',  email:'aisha@email.com',   country:'🇦🇪 UAE',             date:'2025-03-15', type:'email'},
+    {name:'Tom Nielsen',   email:'t.nielsen@email.dk',country:'🇸🇪 Sweden',          date:'2025-03-14', type:'google'},
+    {name:'Wei Zhang',     email:'wzhang@email.com',  country:'🇸🇬 Singapore',       date:'2025-03-14', type:'email'},
+    {name:'Fatima Hassan', email:'f.hassan@email.ke', country:'🇰🇪 Kenya',           date:'2025-03-13', type:'email'},
+  ];
+}
+function renderAdminTable(users) {
+  const tbody = document.getElementById('admin-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = users.map(u=>`
+    <tr>
+      <td><strong style="color:var(--txt)">${u.name}</strong></td>
+      <td style="font-family:'DM Mono',monospace;font-size:.78rem">${u.email}</td>
+      <td>${u.country}</td><td>${u.date}</td>
+      <td><span class="badge ${u.type==='google'?'badge-blue':'badge-green'}">${u.type}</span></td>
+    </tr>`).join('');
+  const el = id => document.getElementById(id);
+  if (el('admin-total'))     el('admin-total').textContent     = users.length;
+  if (el('admin-today'))     el('admin-today').textContent     = users.filter(u=>u.date===new Date().toISOString().slice(0,10)).length||2;
+  if (el('admin-downloads')) el('admin-downloads').textContent = fakeStats.downloads.toLocaleString();
+  const counts={};
+  users.forEach(u=>{counts[u.country]=(counts[u.country]||0)+1});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const max=sorted[0]?.[1]||1;
+  if (el('admin-countries')) el('admin-countries').textContent = sorted.length;
+  const cm = el('country-map');
+  if (cm) cm.innerHTML = sorted.map(([c,n])=>`
+    <div class="map-item">
+      <div class="map-country">${c}</div>
+      <div class="map-count">${n} user${n>1?'s':''}</div>
+      <div class="map-bar"><div class="map-bar-fill" style="width:${(n/max*100).toFixed(0)}%"></div></div>
+    </div>`).join('');
 }
 
 // ── DOC TYPE SELECTION ───────────────────────────────────────────────────
@@ -2025,6 +2502,58 @@ function showToast(msg) {
   t.textContent=msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),3000);
 }
+
+// ── LEGAL PAGES ──────────────────────────────────────────────────────────
+const LEGAL_TITLES = {
+  privacy: 'Privacy Policy',
+  gdpr:    'GDPR / CCPA / PIPEDA',
+  terms:   'Terms of Service',
+  contact: 'Contact Us'
+};
+
+function showLegal(page) {
+  // Hide all sections then show target
+  document.querySelectorAll('.legal-section').forEach(s => s.style.display = 'none');
+  const target = document.getElementById('legal-'+page);
+  if (target) target.style.display = 'block';
+  // Update title
+  const titleEl = document.getElementById('legal-page-title');
+  if (titleEl) titleEl.textContent = '— ' + (LEGAL_TITLES[page] || '');
+  // Show overlay
+  const overlay = document.getElementById('legal-overlay');
+  overlay.style.display = 'block';
+  overlay.scrollTop = 0;
+  // Hide home/builder/admin so back button works correctly
+  overlay._prevSection = document.getElementById('home').style.display !== 'none' ? 'home'
+    : document.getElementById('builder').style.display !== 'none' ? 'builder' : 'home';
+}
+
+function closeLegal() {
+  document.getElementById('legal-overlay').style.display = 'none';
+}
+
+// ── COOKIE CONSENT ────────────────────────────────────────────────────────
+function setCookieConsent(value) {
+  localStorage.setItem('rl_cookie_consent', value);
+  closeCookieBanner();
+}
+function acceptCookies()  { setCookieConsent('accepted'); }
+function rejectCookies()  { setCookieConsent('rejected'); }
+function closeCookieBanner() {
+  const b = document.getElementById('cookie-banner');
+  if (b) b.style.display = 'none';
+}
+
+// Show banner on load if no consent recorded
+window.addEventListener('load', () => {
+  loadStats();
+  if (!localStorage.getItem('rl_cookie_consent')) {
+    setTimeout(() => {
+      const b = document.getElementById('cookie-banner');
+      if (b) b.style.display = 'block';
+    }, 1200); // slight delay so it doesn't flash immediately
+  }
+});
 </script>
 
 <!--
